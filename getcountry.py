@@ -6,7 +6,6 @@ import json, re, os, sys, requests
 
 openfile = open('key.txt')
 key = openfile.read()
-print key
 
 ##source file should be called latslongs.xlsx and lat/long should be columns 1 and 2
 
@@ -27,9 +26,7 @@ def getval():
 		a = str(lat)
 		b = str(lng)
 
-		url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + a +',' + b + 
-
-'&components=country&key=' + key
+		url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + a +',' + b + '&components=country&key=' + key
 		print url		
 
 		response = urlopen(url)
