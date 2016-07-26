@@ -35,7 +35,6 @@ def getval():
 
 		x = 0
 		y = 0
-		y = w["results"][0]["address_components"][x]["types"][0]
 		print y
 		while y != 'country':
 			print x
