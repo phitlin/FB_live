@@ -6,7 +6,6 @@ import json, re, os, sys, requests
 
 openfile = open('key.txt')
 key = openfile.read()
-print key
 
 ##source file should be called latslongs.xlsx and lat/long should be columns 1 and 2
 
@@ -38,7 +37,6 @@ def getval():
 		if w["status"] == 'OK':
 			x = 0
 			y = 0
-			print y
 			while y != 'country':
 				print x
 				print 'not yet'
@@ -53,8 +51,6 @@ def getval():
 			sheet.cell(row=rownum, column=5).value = 'cannot find'	
 
 		wb.save('with country.xlsx')
-
-
 
 			
 ## set to number of rows
