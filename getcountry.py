@@ -27,9 +27,7 @@ def getval():
 		a = str(lat)
 		b = str(lng)
 
-		url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + a +',' + b + 
-
-'&components=country&key=' + key
+		url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + a +',' + b + '&components=country&key=' + key
 		print url		
 
 		response = urlopen(url)
