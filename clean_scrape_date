@@ -1,0 +1,73 @@
+import openpyxl
+
+wb = openpyxl.load_workbook('fbliverawdata.xlsx')
+sheet = wb.get_sheet_by_name('Sheet1')
+
+
+for row in range(2,300):
+	col = 66	
+	ID = sheet[chr(col) + str(row)].value
+	##checking column B	
+	if type(ID) == long and ID >= 0 and ID < 6000:
+		print ID
+		print str(row) +  ' is real ID'
+		sheet.cell(row=row, column=22).value = ID
+		lat = sheet.cell(row=row, column=3).value
+		sheet.cell(row=row, column=23).value = lat
+		lng = sheet.cell(row=row, column=5).value
+		sheet.cell(row=row, column=24).value = lng
+		
+		fc = 74
+		start = sheet[chr(fc) + str(row)].value
+		print 'start is ' + str(start)
+		wb.save('cleanFBlive.xlsx')
+		if type(start) == long and start > 1468600000 and start < 2468608632:
+			sheet.cell(row=row, column=25).value = start
+##			wb.save('cleanFBlive.xlsx')
+			sheet.cell(row=row, column=26).value = sheet[chr(fc + 1) + str(row)].value
+			sheet.cell(row=row, column=27).value = sheet[chr(fc + 2) + str(row)].value
+			
+		else: 		
+			while fc < 83:
+				fc = fc + 1
+				start = sheet[chr(fc) + str(row)].value
+				if type(start) == long and start > 1468600000 and start < 2468608632:
+					sheet.cell(row=row, column=25).value = start
+					wb.save('cleanFBlive.xlsx')
+					sheet.cell(row=row, column=26).value = sheet[chr(fc + 1) + str(row)].value
+					sheet.cell(row=row, column=27).value = sheet[chr(fc + 2) + str(row)].value
+
+			if sheet.cell(row=row, column=26).value < 1:
+				print 'looking at next line'
+				fc = 65
+				while fc < 83:
+					fc = fc + 1
+					start = sheet[chr(fc) + str(row+1)].value	
+##					print 'value is ' + str(start)
+					if type(start) == long and start > 1468600000 and start < 2468608632:
+						sheet.cell(row=row, column=25).value = start
+						wb.save('cleanFBlive.xlsx')
+						sheet.cell(row=row, column=26).value = sheet[chr(fc + 1) + str(row+1)].value
+						sheet.cell(row=row, column=27).value = sheet[chr(fc + 2) + str(row+1)].value
+
+				if sheet.cell(row=row, column=26).value < 1:
+					print 'looking at 2nd line'
+					fc = 65
+					while fc < 83:
+						fc = fc + 1
+						start = sheet[chr(fc) + str(row+2)].value	
+##						print 'value is ' + str(start)
+						if type(start) == long and start > 1468600000 and start < 2468608632:
+							sheet.cell(row=row, column=25).value = start
+							wb.save('cleanFBlive.xlsx')
+							sheet.cell(row=row, column=26).value = sheet[chr(fc + 1) + str(row+2)].value
+							sheet.cell(row=row, column=27).value = sheet[chr(fc + 2) + str(row+2)].value
+
+	else:
+		print str(row) + ' is not readable'	
+
+wb.save('cleanFBlive.xlsx')
+
+
+
+
